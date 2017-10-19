@@ -109,7 +109,7 @@ void CPlayerInfo::SetToJumpUpwards(bool isOnJumpUpwards)
 	{
 		m_bJumpUpwards = true;
 		m_bFallDownwards = false;
-		m_dJumpSpeed = 40.0;
+		m_dJumpSpeed = 10.0;
 	}
 }
 
@@ -262,8 +262,11 @@ void CPlayerInfo::Update(double dt)
 	double mouse_diff_x, mouse_diff_y;
 	MouseController::GetInstance()->GetMouseDelta(mouse_diff_x, mouse_diff_y);
 
-	double camera_yaw = mouse_diff_x * 0.0174555555555556;		// 3.142 / 180.0
-	double camera_pitch = mouse_diff_y * 0.0174555555555556;	// 3.142 / 180.0
+	//double camera_yaw = mouse_diff_x * 0.0174555555555556;		// 3.142 / 180.0
+	//double camera_pitch = mouse_diff_y * 0.0174555555555556;	// 3.142 / 180.0
+
+	double camera_yaw = mouse_diff_x * 3.142 / 40.0;
+	double camera_pitch = mouse_diff_y * 3.142 / 40.0;
 
 	// Update the position if the WASD buttons were activated
 	if (KeyboardController::GetInstance()->IsKeyDown('W') ||
@@ -389,6 +392,7 @@ void CPlayerInfo::Update(double dt)
 			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
 			viewUV = rotation * viewUV;
 			target = position + viewUV;
+			//std::cout << viewUV << std::endl;
 		}
 	}
 
