@@ -392,7 +392,6 @@ void CPlayerInfo::Update(double dt)
 			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
 			viewUV = rotation * viewUV;
 			target = position + viewUV;
-			//std::cout << viewUV << std::endl;
 		}
 	}
 
