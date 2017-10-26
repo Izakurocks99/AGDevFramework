@@ -12,14 +12,14 @@
 CPlayerInfo *CPlayerInfo::s_instance = 0;
 
 CPlayerInfo::CPlayerInfo(void)
-	: m_dSpeed(40.0)
+	: m_dSpeed(20.0)
 	, m_dAcceleration(10.0)
 	, m_bJumpUpwards(false)
 	, m_dJumpSpeed(10.0)
-	, m_dJumpAcceleration(-10.0)
+	, m_dJumpAcceleration(-50.0)
 	, m_bFallDownwards(false)
 	, m_dFallSpeed(0.0)
-	, m_dFallAcceleration(-10.0)
+	, m_dFallAcceleration(-50.0)
 	, attachedCamera(NULL)
 	, m_pTerrain(NULL)
 	, primaryWeapon(NULL)
@@ -109,7 +109,7 @@ void CPlayerInfo::SetToJumpUpwards(bool isOnJumpUpwards)
 	{
 		m_bJumpUpwards = true;
 		m_bFallDownwards = false;
-		m_dJumpSpeed = 10.0;
+		m_dJumpSpeed = 20.0;
 	}
 }
 
