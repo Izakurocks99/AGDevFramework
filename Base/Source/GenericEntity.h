@@ -26,7 +26,8 @@ private:
 namespace Create
 {
 	GenericEntity* Entity(	const std::string& _meshName, 
-							const Vector3& _position, 
+							const Vector3& _position,
+							const GenericEntity::ENTITY_TYPE& _type,
 							const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f));
 };
 

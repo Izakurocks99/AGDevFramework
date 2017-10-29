@@ -156,9 +156,10 @@ CProjectile* Create::Projectile(const std::string& _meshName,
 	CProjectile* result = new CProjectile(modelMesh);
 	result->Set(_position, _direction, m_fLifetime, m_fSpeed);
 	result->SetStatus(true);
+	result->SetType(EntityBase::ENTITY_TYPE::TYPE_PROJECTILE);
 	result->SetCollider(true);
 	result->SetSource(_source);
 	EntityManager::GetInstance()->AddEntity(result);
-
+	
 	return result;
 }

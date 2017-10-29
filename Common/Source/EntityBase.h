@@ -6,6 +6,15 @@
 class EntityBase
 {
 public:
+	enum ENTITY_TYPE
+	{
+		TYPE_NONE,
+		TYPE_CHARACTER,
+		TYPE_OBJECT,
+		TYPE_PROJECTILE,
+		TYPE_MAX
+	};
+public:
 	EntityBase();
 	virtual ~EntityBase();
 
@@ -18,6 +27,9 @@ public:
 
 	inline void SetScale(const Vector3& _value){ scale = _value; };
 	inline Vector3 GetScale(){ return scale; };
+
+	inline void SetType(const ENTITY_TYPE& _value) { type = _value; };
+	inline ENTITY_TYPE GetType() { return type; };
 
 	bool IsDone();
 	void SetIsDone(const bool _value);
@@ -33,6 +45,8 @@ protected:
 
 	bool isDone;
 	bool m_bCollider;
+
+	ENTITY_TYPE type;
 };
 
 #endif // ENTITY_BASE_H

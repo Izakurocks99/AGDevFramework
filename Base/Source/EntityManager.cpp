@@ -200,6 +200,13 @@ bool EntityManager::CheckForCollision(void)
 				{
 					// This object was derived from a CCollider class, then it will have Collision Detection methods
 					EntityBase *thatEntity = dynamic_cast<EntityBase*>(*colliderThat);
+
+					//check type
+					if (thisEntity->GetType() == EntityBase::ENTITY_TYPE::TYPE_OBJECT && thatEntity->GetType() == EntityBase::ENTITY_TYPE::TYPE_PROJECTILE)
+						continue;
+					if (thisEntity->GetType() == EntityBase::ENTITY_TYPE::TYPE_PROJECTILE && thatEntity->GetType() == EntityBase::ENTITY_TYPE::TYPE_OBJECT)
+						continue;
+
 					if (CheckSphereCollision(thisEntity, thatEntity) == true)
 					{
 						if (CheckAABBCollision(thisEntity, thatEntity) == true)
