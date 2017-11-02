@@ -75,6 +75,9 @@
     <ClCompile Include="Source\GenericEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Projectile\Laser.cpp">
+      <Filter>Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="Source\GenericEntity.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile\Laser.h">
+      <Filter>Projectile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

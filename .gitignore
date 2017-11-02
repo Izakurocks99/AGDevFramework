@@ -237,3 +237,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Base/Debug
+/Common/Debug
+/Debug
