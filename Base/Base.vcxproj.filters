@@ -78,6 +78,9 @@
     <ClCompile Include="Source\Projectile\Laser.cpp">
       <Filter>Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="Source\WeaponInfo\CLaserBlaster.cpp">
+      <Filter>WeaponInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Source\Projectile\Laser.h">
       <Filter>Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponInfo\CLaserBlaster.h">
+      <Filter>WeaponInfo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "WeaponInfo.h"
 #include "../Projectile/Projectile.h"
+#include "../Projectile/Laser.h"
 
 #include <iostream>
 using namespace std;
