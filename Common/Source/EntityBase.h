@@ -12,6 +12,7 @@ public:
 		TYPE_CHARACTER,
 		TYPE_OBJECT,
 		TYPE_PROJECTILE,
+		TYPE_LASER,
 		TYPE_MAX
 	};
 public:
