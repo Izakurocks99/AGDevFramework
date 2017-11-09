@@ -9,6 +9,8 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "GenericEntity.h"
+#include "SceneGraph\SceneNode.h"
+#include "SceneGraph\SceneGraph.h"
 
 class ShaderProgram;
 class SceneManager;

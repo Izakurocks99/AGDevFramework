@@ -37,6 +37,7 @@ SceneText::SceneText(SceneManager* _sceneMgr)
 
 SceneText::~SceneText()
 {
+	CSceneGraph::GetInstance()->Destroy();
 }
 
 void SceneText::Init()
@@ -163,10 +164,17 @@ void SceneText::Init()
 	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f),GenericEntity::TYPE_OBJECT);
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-
+	
 	GenericEntity* bCube = Create::Entity("cube", Vector3(20.0f, 0.0f, -20.0f), GenericEntity::TYPE_CHARACTER);
 	bCube->SetCollider(true);
 	bCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+
+	CSceneNode* aNode = CSceneGraph::GetInstance()->AddNode(bCube);
+	if (aNode == NULL)
+		cout << "Unable to add scene graph" << endl;
+	CSceneNode* bNode = aNode->AddChild(aCube);
+	if (bNode == NULL)
+		cout << "Unable to add scene graph" << endl;
 
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));

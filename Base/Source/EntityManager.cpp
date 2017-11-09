@@ -267,12 +267,18 @@ bool EntityManager::CheckForCollision(void)
 							{
 								(*colliderThis)->SetIsDone(true);
 								(*colliderThat)->SetIsDone(true);
+
+								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
+									cout << "This Removed" << endl;
+
+								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
+									cout << "That Removed" << endl;
 							}
 						}
 					}
 				}
 
-				if ((*colliderThat)->HasCollider())
+				else if ((*colliderThat)->HasCollider())
 				{
 					// This object was derived from a CCollider class, then it will have Collision Detection methods
 					EntityBase *thatEntity = dynamic_cast<EntityBase*>(*colliderThat);
@@ -292,6 +298,12 @@ bool EntityManager::CheckForCollision(void)
 							//collision effect: change here and add function into entity base.
 							thisEntity->SetIsDone(true);
 							thatEntity->SetIsDone(true);
+
+							if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
+								cout << "This Removed" << endl;
+
+							if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
+								cout << "That Removed" << endl;
 						}
 					}
 				}
