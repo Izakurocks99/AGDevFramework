@@ -25,6 +25,9 @@
     <Filter Include="WeaponInfo">
       <UniqueIdentifier>{7dbec654-2f78-40a8-a3ff-38691d57358e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneGraph">
+      <UniqueIdentifier>{4a0b5f5e-1202-4ba9-b67b-699b4ce1a020}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -81,6 +84,15 @@
     <ClCompile Include="Source\WeaponInfo\CLaserBlaster.cpp">
       <Filter>WeaponInfo</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneGraph\SceneGraph.cpp">
+      <Filter>SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGraph\SceneNode.cpp">
+      <Filter>SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGraph\Transform.cpp">
+      <Filter>SceneGraph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -133,6 +145,15 @@
     </ClInclude>
     <ClInclude Include="Source\WeaponInfo\CLaserBlaster.h">
       <Filter>WeaponInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneGraph\SceneGraph.h">
+      <Filter>SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneGraph\SceneNode.h">
+      <Filter>SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneGraph\Transform.h">
+      <Filter>SceneGraph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
