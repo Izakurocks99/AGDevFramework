@@ -21,6 +21,8 @@
 #include "Light.h"
 #include "SkyBox/SkyBoxEntity.h"
 
+#include "SceneGraph\UpdateTransformation.h"
+
 #include <iostream>
 using namespace std;
 
@@ -181,6 +183,11 @@ void SceneText::Init()
 	GenericEntity* baseCube = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f));
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
+	CUpdateTransformation* baseMtx = new CUpdateTransformation();
+	baseMtx->ApplyUpdate(1.f, 0.0f, 0.0f);
+	baseMtx->SetSteps(-100, 100);
+	baseNode->SetUpdateTransformation(baseMtx);
+
 	GenericEntity* childCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
 	CSceneNode* childNode = baseNode->AddChild(childCube);
 	childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
@@ -188,6 +195,11 @@ void SceneText::Init()
 	GenericEntity* grandchildCube = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f));
 	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
 	grandchildNode->ApplyTranslate(0.0f, 0.0f, 1.0f);
+
+	CUpdateTransformation* aRotateMtx = new CUpdateTransformation();
+	aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	aRotateMtx->SetSteps(-90, 60);
+	grandchildNode->SetUpdateTransformation(aRotateMtx);
 
 
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
