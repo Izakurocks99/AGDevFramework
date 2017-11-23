@@ -7,6 +7,7 @@
 #include "../Projectile/Projectile.h"
 #include "../WeaponInfo/Pistol.h"
 #include "../WeaponInfo/CLaserBlaster.h"
+#include "../WeaponInfo/GrenadeThrow.h"
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -64,8 +65,10 @@ void CPlayerInfo::Init(void)
 	// Set the pistol as the primary weapon
 	primaryWeapon = new CPistol();
 	primaryWeapon->Init();
-	// Set the laser into secondary
-	secondaryWeapon = new CLaserBlaster();
+	//// Set the laser into secondary
+	//secondaryWeapon = new CLaserBlaster();
+	//secondaryWeapon->Init();
+	secondaryWeapon = new CGrenadeThrow();
 	secondaryWeapon->Init();
 }
 
@@ -508,4 +511,9 @@ void CPlayerInfo::AttachCamera(FPSCamera* _cameraPtr)
 void CPlayerInfo::DetachCamera()
 {
 	attachedCamera = nullptr;
+}
+
+GroundEntity* CPlayerInfo::GetTerrain(void)
+{
+	return m_pTerrain;
 }
