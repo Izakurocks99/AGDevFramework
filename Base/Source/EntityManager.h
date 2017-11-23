@@ -20,6 +20,9 @@ public:
 
 	void AddEntity(EntityBase* _newEntity, bool bAddToSpatialPartition = false);
 	bool RemoveEntity(EntityBase* _existingEntity);
+	bool MarkForDeletetion(EntityBase* _existingEntity);
+
+	void SetSpatialPartition(CSpatialPartition* theSpatialPartition);
 
 private:
 	EntityManager();
