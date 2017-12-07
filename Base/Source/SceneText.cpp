@@ -168,50 +168,50 @@ void SceneText::Init()
 	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f, 160000.0f);
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
 
-	//// Create entities into the scene
-	//Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f),GenericEntity::TYPE_NONE); // Reference
-	//Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z),GenericEntity::TYPE_NONE); // Lightball
+	// Create entities into the scene
+	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f),GenericEntity::TYPE_NONE); // Reference
+	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z),GenericEntity::TYPE_NONE); // Lightball
 
-	//GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f), GenericEntity::TYPE_OBJECT);
-	//aCube->SetCollider(true);
-	//aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//aCube->InitLOD("cube", "sphere", "cubeSG");
+	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f), GenericEntity::TYPE_OBJECT);
+	aCube->SetCollider(true);
+	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	aCube->InitLOD("cube", "sphere", "cubeSG");
 
-	//// Add the pointer to this new entity to the Scene Graph
-	//CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
-	//if (theNode == NULL)
-	//{
-	//	cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	//}
+	// Add the pointer to this new entity to the Scene Graph
+	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
+	if (theNode == NULL)
+	{
+		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
+	}
 
-	//GenericEntity* anotherCube = Create::Entity("cube", Vector3(-20.0f, 1.1f, -20.0f), GenericEntity::TYPE_OBJECT);
-	//anotherCube->SetCollider(true);
-	//anotherCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//CSceneNode* anotherNode = theNode->AddChild(anotherCube);
-	//if (anotherNode == NULL)
-	//{
-	//	cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	//}
+	GenericEntity* anotherCube = Create::Entity("cube", Vector3(-20.0f, 1.1f, -20.0f), GenericEntity::TYPE_OBJECT);
+	anotherCube->SetCollider(true);
+	anotherCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode* anotherNode = theNode->AddChild(anotherCube);
+	if (anotherNode == NULL)
+	{
+		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
+	}
 
-	//GenericEntity* baseCube = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f));
-	//CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	GenericEntity* baseCube = Create::Asset("cube", Vector3(0.0f, 0.0f, 0.0f));
+	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
-	//CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	//baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//baseMtx->SetSteps(-60, 60);
-	//baseNode->SetUpdateTransformation(baseMtx);
+	CUpdateTransformation* baseMtx = new CUpdateTransformation();
+	baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	baseMtx->SetSteps(-60, 60);
+	baseNode->SetUpdateTransformation(baseMtx);
 
-	//GenericEntity* childCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
-	//CSceneNode* childNode = baseNode->AddChild(childCube);
-	//childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
+	GenericEntity* childCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
+	CSceneNode* childNode = baseNode->AddChild(childCube);
+	childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
 
-	//GenericEntity* grandchildCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
-	//CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	//grandchildNode->ApplyTranslate(0.0f, 0.0f, 1.0f);
-	//CUpdateTransformation* aRotateMtx = new CUpdateTransformation();
-	//aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//aRotateMtx->SetSteps(-120, 60);
-	//grandchildNode->SetUpdateTransformation(aRotateMtx);
+	GenericEntity* grandchildCube = Create::Asset("cubeSG", Vector3(0.0f, 0.0f, 0.0f));
+	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
+	grandchildNode->ApplyTranslate(0.0f, 0.0f, 1.0f);
+	CUpdateTransformation* aRotateMtx = new CUpdateTransformation();
+	aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	aRotateMtx->SetSteps(-120, 60);
+	grandchildNode->SetUpdateTransformation(aRotateMtx);
 
 	//ENEMY
 	theEnemy = new CEnemy();
