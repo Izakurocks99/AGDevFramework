@@ -346,14 +346,22 @@ bool EntityManager::CheckForCollision(void)
 						if (CheckAABBCollision(thisEntity, thatEntity) == true)
 						{
 							//collision effect: change here and add function into entity base.
-							thisEntity->SetIsDone(true);
-							thatEntity->SetIsDone(true);
+							//life decrease for both entities
+							thisEntity->SetLife(thisEntity->GetLife()-1);
+							thatEntity->SetLife(thatEntity->GetLife() - 1);
 
-							if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
-								cout << "This Removed" << endl;
-
-							if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
-								cout << "That Removed" << endl;
+							if (thisEntity->GetLife() <= 0)
+							{
+								thisEntity->SetIsDone(true);
+								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)) == true)
+									cout << "This Removed" << endl;
+							}
+							if (thatEntity->GetLife() <= 0)
+							{
+								thatEntity->SetIsDone(true);
+								if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)) == true)
+									cout << "That Removed" << endl;
+							}
 						}
 					}
 				}

@@ -171,12 +171,12 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateCube("L_TreeTrunk", Color(0.5f, 0.2f, 0.1f), 2.5f);
 
 	// Enemies
-	MeshBuilder::GetInstance()->GenerateCube("H_EnemyHead", Color(1.f, 0.f, 0.f), 10.f);
-	MeshBuilder::GetInstance()->GenerateCube("M_EnemyHead", Color(1.f, 0.f, 0.f), 5.f);
-	MeshBuilder::GetInstance()->GenerateCube("L_EnemyHead", Color(1.f, 0.f, 0.f), 2.5f);
-	MeshBuilder::GetInstance()->GenerateCube("H_EnemyBody", Color(0.1f, 0.f, 1.f), 5.0f);
-	MeshBuilder::GetInstance()->GenerateCube("M_EnemyBody", Color(0.1f, 0.f, 1.f), 2.5f);
-	MeshBuilder::GetInstance()->GenerateCube("L_EnemyBody", Color(0.1f, 0.f, 1.f), 0.5f);
+	MeshBuilder::GetInstance()->GenerateCube("H_EnemyHead", Color(1.f, 0.f, 0.f), 1.f);
+	MeshBuilder::GetInstance()->GenerateCube("M_EnemyHead", Color(1.f, 0.f, 0.f), 0.5f);
+	MeshBuilder::GetInstance()->GenerateCube("L_EnemyHead", Color(1.f, 0.f, 0.f), .25f);
+	MeshBuilder::GetInstance()->GenerateCube("H_EnemyBody", Color(0.1f, 0.f, 1.f), 1.f);
+	MeshBuilder::GetInstance()->GenerateCube("M_EnemyBody", Color(0.1f, 0.f, 1.f), 0.5f);
+	MeshBuilder::GetInstance()->GenerateCube("L_EnemyBody", Color(0.1f, 0.f, 1.f), 0.25f);
 
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -381,6 +381,17 @@ void SceneText::Update(double dt)
 		CSpatialPartition::GetInstance()->PrintSelf();
 	}
 	// <THERE>
+
+	//spawnenemy
+	enemySpawnTimer -= dt;
+	if (enemySpawnTimer < 0)
+	{
+		enemySpawnTimer = enemySpawnCooldown;
+		theEnemy = new CEnemy();
+		theEnemy->SetTerrain(groundEntity);
+		theEnemy->Init();
+	}
+
 
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);

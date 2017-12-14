@@ -42,6 +42,8 @@ private:
 	CEnemy* theEnemy;
 
 	static SceneText* sInstance; // The pointer to the object that gets registered
+	float enemySpawnTimer = 0.f;
+	float enemySpawnCooldown = 10.f;
 };
 
 #endif

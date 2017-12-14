@@ -2,6 +2,7 @@
 #include "../EntityManager.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "../PlayerInfo/PlayerInfo.h"
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -33,19 +34,19 @@ void CEnemy::Init(void)
 	defaultUp.Set(0, 1, 0);
 
 	// Set the current values
-	position.Set(10.0f, 0.0f, 0.0f);
-	if (m_pTerrain)
-		target = GenerateTarget();
-	else
-		target.Set(10.0f, 0.0f, 450.0f);
+	//position.Set(10.0f, 0.0f, 0.0f);
+	position = GenerateTarget();
 
 	up.Set(0.0f, 1.0f, 0.0f);
 
 	// Set speed
 	m_dSpeed = 10.0;
 
+	//SetLife
+	SetLife(3);
+
 	// Initialise the LOD meshes
-	InitLOD("cube", "sphere", "cubeSG");
+	InitLOD("H_EnemyBody", "M_EnemyBody", "L_EnemyBody");
 
 	// Initialise the Collider
 	this->SetCollider(true);
@@ -60,7 +61,8 @@ void CEnemy::Init(void)
 	GenericEntity* head = Create::Entity("cube", Vector3(position.x, position.y + 2.1, position.z), GenericEntity::TYPE_CHARACTER);
 	head->SetCollider(true);
 	head->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	head->InitLOD("cubeSG", "sphere", "cube");
+	head->InitLOD("H_EnemyHead", "M_EnemyHead", "L_EnemyHead");
+	head->SetLife(1);
 	CSceneNode* childNode = baseNode->AddChild(head);
 	if (childNode == NULL)
 	{
@@ -168,13 +170,25 @@ GroundEntity* CEnemy::GetTerrain(void)
 // Update
 void CEnemy::Update(double dt)
 {
+	SetTarget(CPlayerInfo::GetInstance()->GetPos());
 	Vector3 viewVector = (target - position).Normalized();
 	position += viewVector * (float)m_dSpeed * (float)dt;
 //	cout << position << " - " << target << "..." << viewVector << endl;
 
-	for (int i = 1; i <= baseNode->GetNumOfChild(); ++i)
+	//if have child
+	if (baseNode->GetNumOfChild() > 0)
 	{
-		baseNode->GetEntity(baseNode->GetID() + i)->GetEntity()->SetPosition(Vector3(position.x, position.y + 2.1, position.z));
+		for (int i = 1; i <= baseNode->GetNumOfChild(); ++i)
+		{
+			//put update child
+			baseNode->GetEntity(baseNode->GetID() + i)->GetEntity()->SetPosition(Vector3(position.x, position.y + 2.1, position.z));
+		}
+	}
+	else
+	{
+		if (CSceneGraph::GetInstance()->DeleteNode(this) == true)
+			cout << "This Removed" << endl;
+		SetIsDone(true);
 	}
 
 	// Constrain the position
@@ -220,7 +234,6 @@ void CEnemy::Render(void)
 	modelStack.Scale(scale.x, scale.y, scale.z);
 	if (GetLODStatus() == true)
 	{
-		cout << theDetailLevel << endl;
 		if (theDetailLevel != NO_DETAILS)
 		{
 			RenderHelper::RenderMesh(GetLODMesh());

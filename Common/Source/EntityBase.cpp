@@ -6,6 +6,7 @@ EntityBase::EntityBase()
 	, isDone(false)
 	, m_bCollider(false)
 	, canRender(true)
+	, life(0)
 {
 }
 

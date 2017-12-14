@@ -44,6 +44,10 @@ public:
 	// Set the flag to indicate if this entity has a collider class parent
 	virtual void SetCollider(const bool _value);
 
+	//set and get life mainly for enemy
+	inline void SetLife(const int _value) { life = _value; };
+	inline int GetLife() { return life; };
+
 protected:
 	Vector3 position;
 	Vector3 scale;
@@ -51,6 +55,8 @@ protected:
 	bool isDone;
 	bool m_bCollider;
 	bool canRender;
+
+	int life;
 
 	ENTITY_TYPE type;
 };
