@@ -168,6 +168,12 @@ void SceneText::Init()
 	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f, 160000.0f);
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
 
+	// Texture
+	MeshBuilder::GetInstance()->GenerateQuad("BRICK_TEXTURE", Color(1, 1, 1), 1.f);
+	MeshBuilder::GetInstance()->GetMesh("BRICK_TEXTURE")->textureID = LoadTGA("Image//bricktexture.tga");
+	MeshBuilder::GetInstance()->GenerateQuad("GRASS_TEXTURE", Color(1, 1, 1), 1.f);
+	MeshBuilder::GetInstance()->GetMesh("GRASS_TEXTURE")->textureID = LoadTGA("Image//grasstexture.tga");
+
 	// Create entities into the scene
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f),GenericEntity::TYPE_NONE); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z),GenericEntity::TYPE_NONE); // Lightball
@@ -217,10 +223,12 @@ void SceneText::Init()
 	theEnemy = new CEnemy();
 	theEnemy->Init();
 
-	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
-//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
+	// Ground
+	groundEntity = Create::Ground("BRICK_TEXTURE", "GRASS_TEXTURE");
+	// Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
+	// Skybox
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
