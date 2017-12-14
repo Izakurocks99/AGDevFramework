@@ -38,11 +38,8 @@ void CEnemy::Init(void)
 		target = GenerateTarget();
 	else
 		target.Set(10.0f, 0.0f, 450.0f);
-	up.Set(0.0f, 1.0f, 0.0f);
 
-	// Set Boundary
-	maxBoundary.Set(1, 1, 1);
-	minBoundary.Set(-1, -1, -1);
+	up.Set(0.0f, 1.0f, 0.0f);
 
 	// Set speed
 	m_dSpeed = 10.0;
@@ -54,11 +51,24 @@ void CEnemy::Init(void)
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1, 1, 1), Vector3(-1, -1, -1));
 
+
 	// Add to EntityManager
+	baseNode = CSceneGraph::GetInstance()->AddNode(this);
 	EntityManager::GetInstance()->AddEntity(this, true);
+
+	//add head  
+	GenericEntity* head = Create::Entity("cube", Vector3(position.x, position.y + 2.1, position.z), GenericEntity::TYPE_CHARACTER);
+	head->SetCollider(true);
+	head->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	head->InitLOD("cubeSG", "sphere", "cube");
+	CSceneNode* childNode = baseNode->AddChild(head);
+	if (childNode == NULL)
+	{
+		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
+	}
 }
 
-void CEnemy::Init(float x, float y)
+void CEnemy::Init(float x, float z)
 {
 	// Set the default values
 	defaultPosition.Set(0, 0, 10);
@@ -66,7 +76,7 @@ void CEnemy::Init(float x, float y)
 	defaultUp.Set(0, 1, 0);
 
 	// Set the current values
-	position.Set(x, 0.0f, y);
+	position.Set(x, 0.0f, z);
 	if (m_pTerrain)
 		target = GenerateTarget();
 	else
@@ -161,6 +171,11 @@ void CEnemy::Update(double dt)
 	Vector3 viewVector = (target - position).Normalized();
 	position += viewVector * (float)m_dSpeed * (float)dt;
 //	cout << position << " - " << target << "..." << viewVector << endl;
+
+	for (int i = 1; i <= baseNode->GetNumOfChild(); ++i)
+	{
+		baseNode->GetEntity(baseNode->GetID() + i)->GetEntity()->SetPosition(Vector3(position.x, position.y + 2.1, position.z));
+	}
 
 	// Constrain the position
 	Constrain();

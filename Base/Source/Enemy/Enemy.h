@@ -1,6 +1,7 @@
 #pragma once
 #include "../GenericEntity.h"
 #include "../GroundEntity.h"
+#include "../SceneGraph/SceneGraph.h"
 
 class Mesh;
 
@@ -17,6 +18,7 @@ protected:
 	double m_dAcceleration;
 
 	int m_iSeed;
+	CSceneNode* baseNode;
 
 public:
 	CEnemy(void);
