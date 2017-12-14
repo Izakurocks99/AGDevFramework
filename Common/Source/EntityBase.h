@@ -35,6 +35,10 @@ public:
 	bool IsDone();
 	void SetIsDone(const bool _value);
 
+	// Checks if can render, if false dont render this entity (For scene graph)
+	bool CanRender();
+	void SetCanRender(bool _canRender);
+
 	// Check if this entity has a collider class parent
 	virtual bool HasCollider(void) const;
 	// Set the flag to indicate if this entity has a collider class parent
@@ -46,6 +50,7 @@ protected:
 
 	bool isDone;
 	bool m_bCollider;
+	bool canRender;
 
 	ENTITY_TYPE type;
 };

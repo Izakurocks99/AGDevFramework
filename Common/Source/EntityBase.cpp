@@ -5,6 +5,7 @@ EntityBase::EntityBase()
 	, scale(1.0f, 1.0f, 1.0f)
 	, isDone(false)
 	, m_bCollider(false)
+	, canRender(true)
 {
 }
 
@@ -32,6 +33,16 @@ bool EntityBase::IsDone()
 void EntityBase::SetIsDone(bool _value)
 {
 	isDone = _value;
+}
+
+bool EntityBase::CanRender()
+{
+	return canRender;
+}
+
+void EntityBase::SetCanRender(bool _canRender)
+{
+	canRender = _canRender;
 }
 
 // Check if this entity has a collider class parent
