@@ -171,9 +171,9 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateCube("L_TreeTrunk", Color(0.5f, 0.2f, 0.1f), 2.5f);
 
 	// Enemies
-	MeshBuilder::GetInstance()->GenerateSphere("H_EnemyHead", Color(1.f, 0.f, 0.f), 18, 36, 5.f);
-	MeshBuilder::GetInstance()->GenerateSphere("M_EnemyHead", Color(1.f, 0.f, 0.f), 18, 36, 2.5f);
-	MeshBuilder::GetInstance()->GenerateSphere("L_EnemyHead", Color(1.f, 0.f, 0.f), 18, 36, 1.25f);
+	MeshBuilder::GetInstance()->GenerateCube("H_EnemyHead", Color(1.f, 0.f, 0.f), 10.f);
+	MeshBuilder::GetInstance()->GenerateCube("M_EnemyHead", Color(1.f, 0.f, 0.f), 5.f);
+	MeshBuilder::GetInstance()->GenerateCube("L_EnemyHead", Color(1.f, 0.f, 0.f), 2.5f);
 	MeshBuilder::GetInstance()->GenerateCube("H_EnemyBody", Color(0.1f, 0.f, 1.f), 5.0f);
 	MeshBuilder::GetInstance()->GenerateCube("M_EnemyBody", Color(0.1f, 0.f, 1.f), 2.5f);
 	MeshBuilder::GetInstance()->GenerateCube("L_EnemyBody", Color(0.1f, 0.f, 1.f), 0.5f);
@@ -238,11 +238,17 @@ void SceneText::Init()
 	grandchildNode->SetUpdateTransformation(aRotateMtx);*/
 
 	// Tree
-	GenericEntity* treetrunk = Create::Entity("H_TreeTrunk", Vector3(0.f, 0.f, -50.f), GenericEntity::TYPE_OBJECT, Vector3(1.f, 2.f, 1.f));
+	GenericEntity* treetrunk = Create::Entity("H_TreeTrunk", Vector3(0.f, 0.f, -50.f), GenericEntity::TYPE_CHARACTER, Vector3(1.f, 2.f, 1.f));
 	treetrunk->InitLOD("H_TreeTrunk", "M_TreeTrunk", "L_TreeTrunk");
+	treetrunk->SetCanRender(false);
+	treetrunk->SetCollider(true);
+	treetrunk->SetAABB(Vector3(5.f, 3.f, 5.f), Vector3(-5.f, -5.f, -5.f));
 	CSceneNode* treeNode1st = CSceneGraph::GetInstance()->AddNode(treetrunk);
-	GenericEntity* treeleaves = Create::Entity("H_TreeLeaves", Vector3(0.f, 2.0f, -50.f), GenericEntity::TYPE_OBJECT);
+	GenericEntity* treeleaves = Create::Entity("H_TreeLeaves", Vector3(0.f, 8.f, -50.f), GenericEntity::TYPE_CHARACTER);
 	treeleaves->InitLOD("H_TreeLeaves", "M_TreeLeaves", "L_TreeLeaves");
+	treeleaves->SetCanRender(false);
+	treeleaves->SetCollider(true);
+	treeleaves->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -1.f, -5.f));
 	CSceneNode* treeNode2nd = treeNode1st->AddChild(treeleaves);
 
 	//ENEMY
@@ -250,18 +256,27 @@ void SceneText::Init()
 	//theEnemy->Init();
 
 	// Enemies
-	GenericEntity* enemyBody = Create::Entity("H_EnemyBody", Vector3(0.f, -5.f, 0.f), GenericEntity::TYPE_OBJECT, Vector3(1.f, 2.f, 1.f));
+	GenericEntity* enemyBody = Create::Entity("H_EnemyBody", Vector3(0.f, -5.f, 0.f), GenericEntity::TYPE_CHARACTER, Vector3(1.f, 2.f, 1.f));
 	enemyBody->InitLOD("H_EnemyBody", "M_EnemyBody", "L_EnemyBody");
+	enemyBody->SetCanRender(false);
+	enemyBody->SetCollider(true);
+	enemyBody->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
 	CSceneNode* enemynode1st = CSceneGraph::GetInstance()->AddNode(enemyBody);
 
 	CUpdateTransformation* enemybaseMovment = new CUpdateTransformation();
 	enemybaseMovment->ApplyUpdate(1.f, 0.f, 0.f);
-	enemybaseMovment->SetSteps(-60, 60);
+	enemybaseMovment->SetSteps(-30, 30);
 	enemynode1st->SetUpdateTransformation(enemybaseMovment);
 
-	GenericEntity* enemyHead = Create::Entity("H_EnemyHead", Vector3(0.f, 2.f, 0.f), GenericEntity::TYPE_OBJECT);
+	GenericEntity* enemyHead = Create::Entity("H_EnemyHead", Vector3(0.f, 2.f, 0.f), GenericEntity::TYPE_CHARACTER);
 	enemyHead->InitLOD("H_EnemyHead", "M_EnemyHead", "L_EnemyHead");
+	enemyHead->SetCanRender(false);
 	CSceneNode* enemynode2nd = enemynode1st->AddChild(enemyHead);
+
+	CUpdateTransformation* enemyheadMovment = new CUpdateTransformation();
+	enemyheadMovment->ApplyUpdate(1.f, 0.f, 1.f, 0.f);
+	enemyheadMovment->SetSteps(-100, 100);
+	enemynode2nd->SetUpdateTransformation(enemyheadMovment);
 
 	// Ground
 	groundEntity = Create::Ground("GRASS_TEXTURE", "GRASS_TEXTURE");

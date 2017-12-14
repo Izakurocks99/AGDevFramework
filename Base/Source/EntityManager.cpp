@@ -53,6 +53,9 @@ void EntityManager::Render()
 	end = entityList.end();
 	for (it = entityList.begin(); it != end; ++it)
 	{
+		if ((*it)->CanRender() == false)
+			continue;
+		
 		(*it)->Render();
 	}
 
