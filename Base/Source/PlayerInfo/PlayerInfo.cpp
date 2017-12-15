@@ -275,6 +275,8 @@ void CPlayerInfo::UpdateFreeFall(double dt)
  ********************************************************************************/
 void CPlayerInfo::Update(double dt)
 {
+	iFrameCD -= dt;
+
 	double mouse_diff_x, mouse_diff_y;
 	MouseController::GetInstance()->GetMouseDelta(mouse_diff_x, mouse_diff_y);
 
@@ -516,4 +518,23 @@ void CPlayerInfo::DetachCamera()
 GroundEntity* CPlayerInfo::GetTerrain(void)
 {
 	return m_pTerrain;
+}
+
+int CPlayerInfo::GetLife()
+{
+	return life;
+}
+
+void CPlayerInfo::SetLife(int _life)
+{
+	life = _life;
+}
+
+void CPlayerInfo::GetDamaged(int _damage)
+{
+	if (iFrameCD < 0)
+	{
+		life -= _damage;
+		iFrameCD = iFrame;
+	}
 }

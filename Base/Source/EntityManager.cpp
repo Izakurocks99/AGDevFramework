@@ -277,6 +277,19 @@ bool EntityManager::CheckForCollision(void)
 	colliderThisEnd = entityList.end();
 	for (colliderThis = entityList.begin(); colliderThis != colliderThisEnd; ++colliderThis)
 	{
+		EntityBase *thisEntity = dynamic_cast<EntityBase*>(*colliderThis);
+
+		//if ((*colliderThis)->GetType() == EntityBase::ENTITY_TYPE::TYPE_CHARACTER)
+		//{
+		//	Vector3 playerPos = CPlayerInfo::GetInstance()->GetPos();
+		//	CCollider *thisCollider = dynamic_cast<CCollider*>(thisEntity);
+
+		//	if (DistanceSquaredBetween(thisEntity->GetPosition(), playerPos) < DistanceSquaredBetween(thisCollider->GetMinAABB(), thisCollider->GetMaxAABB()))
+		//	{
+		//		CPlayerInfo::GetInstance()->GetDamaged(1);
+		//	}
+		//}
+
 		if ((*colliderThis)->HasCollider())
 		{
 			// This object was derived from a CCollider class, then it will have Collision Detection methods

@@ -22,6 +22,9 @@ protected:
 	int zNumOfGrid;
 	float yOffset;
 	std::string _meshName; // Name of the mesh
+	std::string _meshNear;
+	std::string _meshMed;
+	std::string _meshFar;
 
 	// We store the pointer to the Camera so we can get it's position and direction to calculate LOD and visibility
 	FPSCamera* theCamera;
@@ -55,9 +58,11 @@ public:
 
 	// Set a particular grid's Mesh
 	void SetMesh(const std::string& _meshName);
+	void SetMesh(const std::string& _meshNear, const std::string& _meshMed, const std::string& _meshFar);
 
 	// ApplyMesh
 	void ApplyMesh(void);
+	void ApplyLODMesh(void);
 
 	// Update the spatial partition
 	void Update(void);

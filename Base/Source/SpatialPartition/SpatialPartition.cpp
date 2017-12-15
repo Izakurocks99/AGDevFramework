@@ -93,6 +93,16 @@ void CSpatialPartition::SetMesh(const std::string& _meshName)
 	ApplyMesh();
 }
 
+void CSpatialPartition::SetMesh(const std::string & _meshNear, const std::string & _meshMed, const std::string & _meshFar)
+{
+	this->_meshNear = _meshNear;
+	this->_meshMed = _meshMed;
+	this->_meshFar = _meshFar;
+
+	// Assign a Mesh to each Grid if available.
+	ApplyLODMesh();
+}
+
 /********************************************************************************
   ApplyMesh
  ********************************************************************************/
@@ -110,11 +120,37 @@ void CSpatialPartition::ApplyMesh(void)
 	}
 }
 
+void CSpatialPartition::ApplyLODMesh(void)
+{
+	for (int i = 0; i < xNumOfGrid; i++)
+	{
+		for (int j = 0; j < zNumOfGrid; j++)
+		{
+
+			float distance = CalculateDistanceSquare(&(theCamera->GetCameraPos()), i, j);
+			if (distance < LevelOfDetails_Distance[0])
+			{
+				theGrid[i*zNumOfGrid + j].SetMesh(_meshNear);
+			}
+			else if (distance < LevelOfDetails_Distance[1])
+			{
+				theGrid[i*zNumOfGrid + j].SetMesh(_meshMed);
+			}
+			else
+			{
+				theGrid[i*zNumOfGrid + j].SetMesh(_meshFar);
+			}
+
+		}
+	}
+}
+
 /********************************************************************************
 Update the spatial partition
 ********************************************************************************/
 void CSpatialPartition::Update(void)
 {
+	ApplyLODMesh();
 	for (int i = 0; i<xNumOfGrid; i++)
 	{
 		for (int j = 0; j<zNumOfGrid; j++)

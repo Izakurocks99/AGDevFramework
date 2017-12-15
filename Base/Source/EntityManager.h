@@ -7,6 +7,7 @@
 #include "SceneGraph\SceneGraph.h"
 #include "SceneGraph\SceneNode.h"
 #include "SpatialPartition\SpatialPartition.h"
+#include "PlayerInfo\PlayerInfo.h"
 
 class EntityBase;
 

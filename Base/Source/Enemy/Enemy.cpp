@@ -58,7 +58,7 @@ void CEnemy::Init(void)
 	EntityManager::GetInstance()->AddEntity(this, true);
 
 	//add head  
-	GenericEntity* head = Create::Entity("cube", Vector3(position.x, position.y + 2.1, position.z), GenericEntity::TYPE_CHARACTER);
+	GenericEntity* head = Create::Entity("cube", Vector3(position.x, position.y + 1.1, position.z), GenericEntity::TYPE_CHARACTER);
 	head->SetCollider(true);
 	head->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	head->InitLOD("H_EnemyHead", "M_EnemyHead", "L_EnemyHead");
@@ -184,12 +184,12 @@ void CEnemy::Update(double dt)
 			baseNode->GetEntity(baseNode->GetID() + i)->GetEntity()->SetPosition(Vector3(position.x, position.y + 2.1, position.z));
 		}
 	}
-	else
-	{
-		if (CSceneGraph::GetInstance()->DeleteNode(this) == true)
-			cout << "This Removed" << endl;
-		SetIsDone(true);
-	}
+	//else
+	//{
+	//	if (CSceneGraph::GetInstance()->DeleteNode(this) == true)
+	//		cout << "This Removed" << endl;
+	//	SetIsDone(true);
+	//}
 
 	// Constrain the position
 	Constrain();
@@ -246,7 +246,7 @@ void CEnemy::Render(void)
 Vector3 CEnemy::GenerateTarget(void)
 {
 	return Vector3(	rand() % (int)((maxBoundary.x - minBoundary.x)*0.5),	
-					0.0f, 
+					-0.5f, 
 					rand() % (int)((maxBoundary.x - minBoundary.x)*0.5));
 }
 

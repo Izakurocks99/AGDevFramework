@@ -97,6 +97,11 @@ public:
 	//Get terrain for player info
 	GroundEntity* GetTerrain(void);
 
+	//player life
+	int GetLife();
+	void SetLife(int _life);
+	void GetDamaged(int _damage);
+
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
 	Vector3 position, target, up;
@@ -120,4 +125,8 @@ private:
 
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
+
+	int life;
+	const float iFrame = 1.f;
+	float iFrameCD = 0.f;
 };

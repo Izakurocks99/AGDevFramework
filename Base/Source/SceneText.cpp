@@ -158,7 +158,11 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.0f);
+
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
+	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESHNEAR", Color(1, 0, 0), 1.f);
+	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESHMED", Color(0, 1, 0), 1.f);
+	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESHFAR", Color(0, 0, 1), 1.f);
 
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.0f, 0.64f, 0.0f), 1.0f);
 
@@ -172,16 +176,17 @@ void SceneText::Init()
 
 	// Enemies
 	MeshBuilder::GetInstance()->GenerateCube("H_EnemyHead", Color(1.f, 0.f, 0.f), 1.f);
-	MeshBuilder::GetInstance()->GenerateCube("M_EnemyHead", Color(1.f, 0.f, 0.f), 0.5f);
-	MeshBuilder::GetInstance()->GenerateCube("L_EnemyHead", Color(1.f, 0.f, 0.f), .25f);
-	MeshBuilder::GetInstance()->GenerateCube("H_EnemyBody", Color(0.1f, 0.f, 1.f), 1.f);
-	MeshBuilder::GetInstance()->GenerateCube("M_EnemyBody", Color(0.1f, 0.f, 1.f), 0.5f);
-	MeshBuilder::GetInstance()->GenerateCube("L_EnemyBody", Color(0.1f, 0.f, 1.f), 0.25f);
+	MeshBuilder::GetInstance()->GenerateCube("M_EnemyHead", Color(0.f, 1.f, 0.f), 2.f);
+	MeshBuilder::GetInstance()->GenerateCube("L_EnemyHead", Color(0.f, 0.f, 1.f), 3.f);
+	MeshBuilder::GetInstance()->GenerateCube("H_EnemyBody", Color(0.f, 0.f, 1.f), 1.f);
+	MeshBuilder::GetInstance()->GenerateCube("M_EnemyBody", Color(0.f, 1.f, 0.f), 2.f);
+	MeshBuilder::GetInstance()->GenerateCube("L_EnemyBody", Color(1.f, 0.f, 0.f), 3.f);
 
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
-	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
 	CSpatialPartition::GetInstance()->SetCamera(&camera);
 	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f, 160000.0f);
+	CSpatialPartition::GetInstance()->SetMesh("GRIDMESHNEAR", "GRIDMESHMED", "GRIDMESHFAR");
+	//CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
 	
 	
@@ -237,42 +242,42 @@ void SceneText::Init()
 	aRotateMtx->SetSteps(-120, 60);
 	grandchildNode->SetUpdateTransformation(aRotateMtx);*/
 
-	// Tree
-	GenericEntity* treetrunk = Create::Entity("H_TreeTrunk", Vector3(0.f, 0.f, -50.f), GenericEntity::TYPE_CHARACTER, Vector3(1.f, 2.f, 1.f));
-	treetrunk->InitLOD("H_TreeTrunk", "M_TreeTrunk", "L_TreeTrunk");
-	treetrunk->SetCanRender(false);
-	treetrunk->SetCollider(true);
-	treetrunk->SetAABB(Vector3(5.f, 3.f, 5.f), Vector3(-5.f, -5.f, -5.f));
-	CSceneNode* treeNode1st = CSceneGraph::GetInstance()->AddNode(treetrunk);
-	GenericEntity* treeleaves = Create::Entity("H_TreeLeaves", Vector3(0.f, 8.f, -50.f), GenericEntity::TYPE_CHARACTER);
-	treeleaves->InitLOD("H_TreeLeaves", "M_TreeLeaves", "L_TreeLeaves");
-	treeleaves->SetCanRender(false);
-	treeleaves->SetCollider(true);
-	treeleaves->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -1.f, -5.f));
-	CSceneNode* treeNode2nd = treeNode1st->AddChild(treeleaves);
+	//// Tree
+	//GenericEntity* treetrunk = Create::Entity("H_TreeTrunk", Vector3(0.f, 0.f, -50.f), GenericEntity::TYPE_CHARACTER, Vector3(1.f, 2.f, 1.f));
+	//treetrunk->InitLOD("H_TreeTrunk", "M_TreeTrunk", "L_TreeTrunk");
+	//treetrunk->SetCanRender(false);
+	//treetrunk->SetCollider(true);
+	//treetrunk->SetAABB(Vector3(5.f, 3.f, 5.f), Vector3(-5.f, -5.f, -5.f));
+	//CSceneNode* treeNode1st = CSceneGraph::GetInstance()->AddNode(treetrunk);
+	//GenericEntity* treeleaves = Create::Entity("H_TreeLeaves", Vector3(0.f, 8.f, -50.f), GenericEntity::TYPE_CHARACTER);
+	//treeleaves->InitLOD("H_TreeLeaves", "M_TreeLeaves", "L_TreeLeaves");
+	//treeleaves->SetCanRender(false);
+	//treeleaves->SetCollider(true);
+	//treeleaves->SetAABB(Vector3(5.f, 5.f, 5.f), Vector3(-5.f, -1.f, -5.f));
+	//CSceneNode* treeNode2nd = treeNode1st->AddChild(treeleaves);
 
-	// Enemies
-	GenericEntity* enemyBody = Create::Entity("H_EnemyBody", Vector3(0.f, -5.f, 0.f), GenericEntity::TYPE_CHARACTER, Vector3(1.f, 2.f, 1.f));
-	enemyBody->InitLOD("H_EnemyBody", "M_EnemyBody", "L_EnemyBody");
-	enemyBody->SetCanRender(false);
-	enemyBody->SetCollider(true);
-	enemyBody->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
-	CSceneNode* enemynode1st = CSceneGraph::GetInstance()->AddNode(enemyBody);
+	//// Enemies
+	//GenericEntity* enemyBody = Create::Entity("H_EnemyBody", Vector3(0.f, -5.f, 0.f), GenericEntity::TYPE_CHARACTER, Vector3(1.f, 2.f, 1.f));
+	//enemyBody->InitLOD("H_EnemyBody", "M_EnemyBody", "L_EnemyBody");
+	//enemyBody->SetCanRender(false);
+	//enemyBody->SetCollider(true);
+	//enemyBody->SetAABB(Vector3(2.5f, 2.5f, 2.5f), Vector3(-2.5f, -2.5f, -2.5f));
+	//CSceneNode* enemynode1st = CSceneGraph::GetInstance()->AddNode(enemyBody);
 
-	CUpdateTransformation* enemybaseMovment = new CUpdateTransformation();
-	enemybaseMovment->ApplyUpdate(1.f, 0.f, 0.f);
-	enemybaseMovment->SetSteps(-30, 30);
-	enemynode1st->SetUpdateTransformation(enemybaseMovment);
+	//CUpdateTransformation* enemybaseMovment = new CUpdateTransformation();
+	//enemybaseMovment->ApplyUpdate(1.f, 0.f, 0.f);
+	//enemybaseMovment->SetSteps(-30, 30);
+	//enemynode1st->SetUpdateTransformation(enemybaseMovment);
 
-	GenericEntity* enemyHead = Create::Entity("H_EnemyHead", Vector3(0.f, 2.f, 0.f), GenericEntity::TYPE_CHARACTER);
-	enemyHead->InitLOD("H_EnemyHead", "M_EnemyHead", "L_EnemyHead");
-	enemyHead->SetCanRender(false);
-	CSceneNode* enemynode2nd = enemynode1st->AddChild(enemyHead);
+	//GenericEntity* enemyHead = Create::Entity("H_EnemyHead", Vector3(0.f, 2.f, 0.f), GenericEntity::TYPE_CHARACTER);
+	//enemyHead->InitLOD("H_EnemyHead", "M_EnemyHead", "L_EnemyHead");
+	//enemyHead->SetCanRender(false);
+	//CSceneNode* enemynode2nd = enemynode1st->AddChild(enemyHead);
 
-	CUpdateTransformation* enemyheadMovment = new CUpdateTransformation();
-	enemyheadMovment->ApplyUpdate(1.f, 0.f, 1.f, 0.f);
-	enemyheadMovment->SetSteps(-100, 100);
-	enemynode2nd->SetUpdateTransformation(enemyheadMovment);
+	//CUpdateTransformation* enemyheadMovment = new CUpdateTransformation();
+	//enemyheadMovment->ApplyUpdate(1.f, 0.f, 1.f, 0.f);
+	//enemyheadMovment->SetSteps(-100, 100);
+	//enemynode2nd->SetUpdateTransformation(enemyheadMovment);
 
 	// Ground
 	groundEntity = Create::Ground("GRASS_TEXTURE", "GRASS_TEXTURE");
@@ -289,11 +294,6 @@ void SceneText::Init()
 	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
-
-	//ENEMY
-	theEnemy = new CEnemy();
-	theEnemy->SetTerrain(groundEntity);
-	theEnemy->Init();
 
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
