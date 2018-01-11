@@ -65,6 +65,7 @@ void EntityManager::Render()
 	// Render the Spatial Partition
 	if (theSpatialPartition)
 		theSpatialPartition->Render();
+		
 }
 
 // Render the UI entities
@@ -138,6 +139,7 @@ void EntityManager::SetSpatialPartition(CSpatialPartition * theSpatialPartition)
 // Constructor
 EntityManager::EntityManager()
 {
+	theSpatialPartition = NULL;
 }
 
 // Destructor
