@@ -43,6 +43,9 @@
     <Filter Include="Waypoint">
       <UniqueIdentifier>{cb242be9-59a6-4175-8527-5c20c3657f1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{330ef979-3181-45fd-ae0c-28524abbcb60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -141,6 +144,9 @@
     <ClCompile Include="Source\Waypoint\WaypointManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Lua\LuaInterface.cpp">
+      <Filter>Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -235,6 +241,24 @@
     </ClInclude>
     <ClInclude Include="Source\Waypoint\WaypointManager.h">
       <Filter>Waypoint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lauxlib.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lua.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lua.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\luaconf.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\LuaInterface.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lualib.h">
+      <Filter>Lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
