@@ -19,11 +19,37 @@ function CalculateDistanceSquare(x1,y1,z1,x2,y2,z2)
 	return distanceSquare
 end
 
-function GetMinMax(a,b,c,d)
-	local averageValue = (a + b + c + d)/4
-	print(averageValue)
-	print (a,b,c,d)
-	return averageValue,a,b,c,d
+function GetMinMax(...)
+	local minValue = -1
+	local maxValue = -1
+	local aveValue = 0
+	local numValues = 0
+	
+	print(minValue,maxValue,aveValue,numValues)
+	
+	for i,v in ipairs(arg) do
+		if minValue == -1 then
+			minValue = v
+		elseif v < minValue then
+			minValue = v
+		end
+	
+		if maxValue == -1 then
+			maxValue = v
+		elseif v>maxValue then
+			maxValue = v
+		end
+		
+		aveValue = (aveValue*numValues + v)/(numValues + 1)
+		numValues = numValues + 1
+	
+	print(minValue,maxValue,aveValue,numValues)
+	
+	end
+	--aveValue = aveValue/numValues
+	--print(minValue,maxValue,aveValue,numValues)
+	return minValue,maxValue,aveValue,numValues
+	
 end
 
 title = "DM2240 - Week 14 Scripting"
