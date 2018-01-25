@@ -22,6 +22,7 @@
 #include "SkyBox/SkyBoxEntity.h"
 
 #include "SceneGraph\UpdateTransformation.h"
+#include "LuaInterface.h"
 
 #include <iostream>
 using namespace std;
@@ -305,6 +306,12 @@ void SceneText::Init()
 		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f,1.0f,0.0f));
 	}
 	textObj[0]->SetText("HELLO WORLD");
+
+	
+	float distanceSquare = CLuaInterface::GetInstance()->getDistanceSquareValue("CalculateDistanceSquare", Vector3(0, 0, 0), Vector3(10, 10, 10));
+
+	int a = 1000, b = 2000, c = 3000, d = 4000;
+	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
 }
 
 void SceneText::Update(double dt)

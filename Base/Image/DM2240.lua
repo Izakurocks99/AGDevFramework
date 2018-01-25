@@ -13,9 +13,31 @@ function SaveToLuaFile(outputString, overwrite)
    print("OK")
 end
 
+function CalculateDistanceSquare(x1,y1,z1,x2,y2,z2)
+	local distanceSquare = (x2-x1)*(x2-x1) + (y2 -y1) * (y2 -y1) + (z2 -z1) * (z2 -z1)
+	print(distanceSquare)
+	return distanceSquare
+end
+
+function GetMinMax(a,b,c,d)
+	local averageValue = (a + b + c + d)/4
+	print(averageValue)
+	print (a,b,c,d)
+	return averageValue,a,b,c,d
+end
+
 title = "DM2240 - Week 14 Scripting"
 width = 800
 height = 600
 PlayerPos_x = 100
 PlayerPos_z = 200
 keyFORWARD = "Z";
+
+--Keyboard Inputs
+moveForward = "W"
+moveBackward = "S"
+moveLeft = "A"
+moveRight = "D"
+
+--CPlayerInfo start pos
+CPlayerInfoStartPos = {0,0,10}

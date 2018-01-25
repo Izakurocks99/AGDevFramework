@@ -126,6 +126,11 @@ private:
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
 
+	char keyMoveForward;
+	char keyMoveBackward;
+	char keyMoveLeft;
+	char keyMoveRight;
+
 	int life;
 	const float iFrame = 1.f;
 	float iFrameCD = 0.f;
