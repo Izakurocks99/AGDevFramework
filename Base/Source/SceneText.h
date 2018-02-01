@@ -12,6 +12,7 @@
 #include "SceneGraph\SceneNode.h"
 #include "SceneGraph\SceneGraph.h"
 #include "Enemy\Enemy.h"
+#include "../Lua/LuaInterface.h"
 
 class ShaderProgram;
 class SceneManager;
