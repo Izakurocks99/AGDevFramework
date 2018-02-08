@@ -412,6 +412,14 @@ void SceneText::Update(double dt)
 	{
 		CSpatialPartition::GetInstance()->PrintSelf();
 	}
+	if (KeyboardController::GetInstance()->IsKeyPressed('Z')) //Save
+	{
+		playerInfo->GetInstance()->SavePlayerInfo();
+	}
+	if (KeyboardController::GetInstance()->IsKeyPressed('X')) //Load
+	{
+		playerInfo->GetInstance()->LoadPlayerInfo();
+	}
 	// <THERE>
 
 	//spawnenemy

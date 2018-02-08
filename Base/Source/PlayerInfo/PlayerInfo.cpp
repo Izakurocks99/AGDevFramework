@@ -9,6 +9,7 @@
 #include "../WeaponInfo/CLaserBlaster.h"
 #include "../WeaponInfo/GrenadeThrow.h"
 #include "LuaInterface.h"
+#include "lua.h"
 using namespace std;
 
 // Allocating and initializing CPlayerInfo's static data member.  
@@ -571,4 +572,34 @@ void CPlayerInfo::PrintSelf()
 	cout << "JumpAcceleration\t\t:\t" << m_dJumpAcceleration << endl;
 	cout << "FallAcceleration\t\t:\t" << m_dFallAcceleration<< endl;
 	cout << "Life\t:\t" << life<< endl;
+}
+
+void CPlayerInfo::SavePlayerInfo()
+{
+	CLuaInterface::GetInstance()->saveVectorValue("CPlayerInfoStartPos", position, true);
+	CLuaInterface::GetInstance()->saveVectorValue("CPlayerInfoTargetPos", target);
+
+	PrintSelf();
+	//// Set the current values
+	//position = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoStartPos");
+	//target = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoTargetPos");
+
+	////read jump/fall acceleration from LUA
+	//m_dJumpAcceleration = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoJumpAcc");
+	//m_dFallAcceleration = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoFallAcc");
+
+	////read player life from file
+	//life = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoLife");
+
+}
+
+void CPlayerInfo::LoadPlayerInfo()
+{
+	//load the load lua script
+	luaL_dofile(CLuaInterface::GetInstance()->theSaveState, "Image//DM2240_HighScore.lua");
+	//Load from file
+	position = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoStartPos",true);
+	target = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoTargetPos", true);
+
+	PrintSelf();
 }

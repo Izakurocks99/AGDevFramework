@@ -43,17 +43,24 @@ public:
 
 	// Get an integer value through the Lua Interface Class
 	int getIntValue(const char* varName);
+	int getIntValue(const char* varName,bool loadFile);
 	// Get a float value through the Lua Interface Class
 	float getFloatValue(const char* varName);
+	float getFloatValue(const char* varName,bool loadFile);
 
 	// Save an integer value through the Lua Interface Class
 	void saveIntValue(const char* varName, const int value, const bool bOverwrite = NULL);
+	//void saveIntValue(const char* varName, const int value, const bool bOverwrite, const char* filename);
 	// Save a float value through the Lua Interface Class
 	void saveFloatValue(const char* varName, const float value, const bool bOverwrite = NULL);
+	//void saveFloatValue(const char* varName, const float value, const bool bOverwrite, const char* filename);
+	// Save a vector through the Lua Interface Class
+	void saveVectorValue(const char* varName, const Vector3 value, const bool bOverwrite = NULL);
 	// get char value through the lua interface class
 	char getCharValue(const char* varName);
 	// get Vector3 values through the Lua Interface Class
 	Vector3 getVector3Values(const char* varName);
+	Vector3 getVector3Values(const char* varName, bool loadFile);
 	//get distance square value through the lua interface class
 	float getDistanceSquareValue(const char*varName, Vector3 source, Vector3 destination);
 	//get variable number of values through the Lua Interface class
@@ -66,6 +73,7 @@ public:
 	// Pointer to the Lua State
 	lua_State *theLuaState;
 	lua_State *theErrorState;
+	lua_State *theSaveState;
 
 	// Key to move forward
 	char keyFORWARD;

@@ -103,6 +103,8 @@ public:
 	void GetDamaged(int _damage);
 
 	void PrintSelf();
+	void SavePlayerInfo();
+	void LoadPlayerInfo();
 
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
