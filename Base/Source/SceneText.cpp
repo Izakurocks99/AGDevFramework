@@ -316,9 +316,23 @@ void SceneText::Init()
 	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
 
 	// Create a Waypoint inside WaypointManager
-	int aWayPoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(350.0f, 0.0f, 60.0f));
-	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint, Vector3(350.0f, 0.0f, -60.0f));
-	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(0.0f, 0.0f, 0.0f));
+	//int aWayPoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(350.0f, 0.0f, 60.0f));
+	//int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint, Vector3(350.0f, 0.0f, -60.0f));
+	//CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(0.0f, 0.0f, 0.0f));
+	
+	//Use lua to create waypoints
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_1");
+	CWaypointManager::GetInstance()->AddWaypoint(Vector3( CLuaInterface::GetInstance()->GetField("x")
+		, CLuaInterface::GetInstance()->GetField("y")
+		, CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_2");
+	CWaypointManager::GetInstance()->AddWaypoint(Vector3(CLuaInterface::GetInstance()->GetField("x")
+		, CLuaInterface::GetInstance()->GetField("y")
+		, CLuaInterface::GetInstance()->GetField("z")));
+	lua_getglobal(CLuaInterface::GetInstance()->theLuaState, "Waypoint_A_3");
+	CWaypointManager::GetInstance()->AddWaypoint(Vector3(CLuaInterface::GetInstance()->GetField("x")
+		, CLuaInterface::GetInstance()->GetField("y")
+		, CLuaInterface::GetInstance()->GetField("z")));
 	CWaypointManager::GetInstance()->PrintSelf();
 
 

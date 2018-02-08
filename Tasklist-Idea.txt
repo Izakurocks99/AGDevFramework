@@ -1,0 +1,29 @@
+30% AI:
+State machine for ai
+follow waypoints
+if ai see player, chase
+if too far from curr waypoint, go back to waypoint
+
+30% game state management
+Start state
+Menu State
+Gameplay state
+Gameover state
+Shop state after everywave
+
+30% LUA:
+use lua to read values from an init data file,
+init:
+ - width and height of OpenGL program.
+ - character info, etc ammo weap, health.
+ - load/ save settings, high score, waypoint setting, FSM, ground dimension, skybox textures, movespeeds, num of entities, animantion assets etc
+
+Gameplay:
+Treasure chest will spawn around the map, if the player picks it up they gain money
+player score will be the total amount of money they have
+money can be used to upgrade health ammo etc in the shop state
+enemies will roam around the map to "guard the treasure" using waypoints, and chase if player gets near
+if player dies, go to gameover screen and show score,
+game over screen can go back to main menu screen
+
+
