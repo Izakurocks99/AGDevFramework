@@ -74,6 +74,9 @@ void CPlayerInfo::Init(void)
 
 	PrintSelf();
 
+	// Set life
+	SetLife(10);
+
 	// Set Boundary
 	maxBoundary.Set(1,1,1);
 	minBoundary.Set(-1, -1, -1);

@@ -188,24 +188,37 @@ GroundEntity* CEnemy::GetTerrain(void)
 // Update
 void CEnemy::Update(double dt)
 {
-	if (enemyType_ == "Chase" || (enemyType_ == "Waypoint" && (position - CPlayerInfo::GetInstance()->GetPos()).Length() <= enemyRange_))
+	// Chasing
+	if (((position - CPlayerInfo::GetInstance()->GetPos()).Length()) <= enemyRange_)
 	{
 		SetTarget(CPlayerInfo::GetInstance()->GetPos());
+		// Debugging
 		/*if (enemyType_ == "Waypoint")
 			cout << "Saw Player!!" << endl;*/
 	}
-	else if((target - position).LengthSquared() < 25.0f)
+	// Waypoint (random)
+	if (Get_EnemyType() == "Chase" && ((target - position).LengthSquared() < 25.0f))
+	{
+		CWaypoint* nextWaypoint = GetRandWaypoint();
+		if (nextWaypoint)
+			target = nextWaypoint->GetPosition();
+		else
+			target = Vector3(0, 0, 0);
+		cout << "Chase_chan's Next target: " << target << endl;
+	}
+	// Waypoint (non random)
+	else if (Get_EnemyType() == "Chase" && ((target - position).LengthSquared() < 25.0f))
 	{
 		CWaypoint* nextWaypoint = GetNextWaypoint();
 		if (nextWaypoint)
 			target = nextWaypoint->GetPosition();
 		else
 			target = Vector3(0, 0, 0);
-		cout << "Next target: " << target << endl;
+		cout << "Normie_chan's Next target: " << target << endl;
 	}
 	Vector3 viewVector = (target - position).Normalized();
 	position += viewVector * (float)m_dSpeed * (float)dt;
-//	cout << position << " - " << target << "..." << viewVector << endl;
+	//	cout << position << " - " << target << "..." << viewVector << endl;
 
 	//if have child
 	if (baseNode->GetNumOfChild() > 0)
@@ -296,6 +309,18 @@ CWaypoint* CEnemy::GetNextWaypoint(void)
 		return CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[m_iWayPointIndex]);
 	}	
 
+	return NULL;
+}
+
+CWaypoint * CEnemy::GetRandWaypoint(void)
+{
+	if ((int)listOfWaypoints.size() > 0)
+	{
+		int rand_Index = Math::RandIntMinMax(1, (int)listOfWaypoints.size() - 1);
+		
+		//CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[m_iWayPointIndex]);
+		return CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[rand_Index]);
+	}
 	return NULL;
 }
 

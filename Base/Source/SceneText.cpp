@@ -427,10 +427,11 @@ void SceneText::Update(double dt)
 	if (enemySpawnTimer < 0)
 	{
 		enemySpawnTimer = enemySpawnCooldown;
-		/*theEnemy = new CEnemy();
+		theEnemy = new CEnemy();
 		theEnemy->SetTerrain(groundEntity);
 		theEnemy->Init();
-		theEnemy->Set_EnemyType("Chase");*/
+		theEnemy->Set_EnemyType("Chase");
+		theEnemyList.push_back(theEnemy);
 	}
 	if (newEnemySpawn)
 	{
@@ -443,6 +444,28 @@ void SceneText::Update(double dt)
 
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
+	Vector3 v1 = playerInfo->GetPos();
+	Vector3 v2 = new_Enemy->GetPos();
+
+	// Player to enemy collison
+	if ((v1 - v2).Length() <= 1)
+	{
+		playerInfo->GetDamaged(10);
+	}
+	for (int index = 0; index < theEnemyList.size(); ++index)
+	{
+		Vector3 v3 = theEnemyList[index]->GetPos();
+		if ((v1 - v3).Length() <= 1)
+		{
+			playerInfo->GetDamaged(10);
+		}
+	}
+
+	// Player dead will render game over
+	if (playerInfo->GetLife() <= 0)
+	{
+		SceneManager::GetInstance()->SetActiveScene("Gameover");
+	}
 
 	//camera.Update(dt); // Can put the camera into an entity rather than here (Then we don't have to write this)
 

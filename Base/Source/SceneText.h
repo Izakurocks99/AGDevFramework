@@ -13,6 +13,7 @@
 #include "SceneGraph\SceneGraph.h"
 #include "Enemy\Enemy.h"
 #include "../Lua/LuaInterface.h"
+#include <vector>
 
 class ShaderProgram;
 class SceneManager;
@@ -42,6 +43,8 @@ private:
 	GenericEntity* theCube;
 	CEnemy* theEnemy;
 	CEnemy* new_Enemy;
+
+	std::vector<CEnemy*> theEnemyList;
 
 	//static SceneText* sInstance; // The pointer to the object that gets registered
 	float enemySpawnTimer = 0.f;

@@ -80,6 +80,9 @@ public:
 	// Get next Waypoint for this 
 	CWaypoint* GetNextWaypoint(void);
 
+	// Get random waypoint
+	CWaypoint* GetRandWaypoint(void);
+
 	// Set Enemy Type
 	void Set_EnemyType(string _newEnemyType);
 	// Get Enemy Type
