@@ -9,6 +9,7 @@
 #include "../WeaponInfo/CLaserBlaster.h"
 #include "../WeaponInfo/GrenadeThrow.h"
 #include "LuaInterface.h"
+using namespace std;
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -60,8 +61,17 @@ void CPlayerInfo::Init(void)
 
 	// Set the current values
 	position = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoStartPos");
-	target.Set(0, 0, 0);
+	target = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoTargetPos");
 	up.Set(0, 1, 0);
+
+	//read jump/fall acceleration from LUA
+	m_dJumpAcceleration = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoJumpAcc");
+	m_dFallAcceleration = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoFallAcc");
+
+	//read player life from file
+	life = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoLife");
+
+	PrintSelf();
 
 	// Set Boundary
 	maxBoundary.Set(1,1,1);
@@ -73,8 +83,8 @@ void CPlayerInfo::Init(void)
 	//// Set the laser into secondary
 	//secondaryWeapon = new CLaserBlaster();
 	//secondaryWeapon->Init();
-	secondaryWeapon = new CGrenadeThrow();
-	secondaryWeapon->Init();
+	//secondaryWeapon = new CGrenadeThrow();
+	//secondaryWeapon->Init();
 
 	//init keyboard input
 	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("moveForward");
@@ -549,4 +559,16 @@ void CPlayerInfo::GetDamaged(int _damage)
 		life -= _damage;
 		iFrameCD = iFrame;
 	}
+}
+
+void CPlayerInfo::PrintSelf()
+{
+	// Print Self
+	cout << "CPlayerInfo::PrintSelf()" << endl;
+	cout << "========================" << endl;
+	cout << "Position\t\t:\t" << position.x << " , " << position.y << " , "  << position.z << endl;
+	cout << "Target\t\t:\t" << target.x << " , " << target.y << " , " << target.z << endl;
+	cout << "JumpAcceleration\t\t:\t" << m_dJumpAcceleration << endl;
+	cout << "FallAcceleration\t\t:\t" << m_dFallAcceleration<< endl;
+	cout << "Life\t:\t" << life<< endl;
 }

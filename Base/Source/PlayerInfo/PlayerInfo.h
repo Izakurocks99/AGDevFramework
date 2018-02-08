@@ -102,6 +102,8 @@ public:
 	void SetLife(int _life);
 	void GetDamaged(int _damage);
 
+	void PrintSelf();
+
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
 	Vector3 position, target, up;

@@ -1,5 +1,5 @@
 #include "Pistol.h"
-
+#include "LuaInterface.h"
 
 CPistol::CPistol()
 {
@@ -17,18 +17,20 @@ void CPistol::Init(void)
 	CWeaponInfo::Init();
 
 	// The number of ammunition in a magazine for this weapon
-	magRounds = 8;
+	magRounds = CLuaInterface::GetInstance()->getIntValue("CPistolMagRounds");
 	// The maximum number of ammunition for this magazine for this weapon
-	maxMagRounds = 8;
+	maxMagRounds = CLuaInterface::GetInstance()->getIntValue("CPistolMaxMagRounds");
 	// The current total number of rounds currently carried by this player
-	totalRounds = 40;
+	totalRounds = CLuaInterface::GetInstance()->getIntValue("CPistolTotalRounds");
 	// The max total number of rounds currently carried by this player
-	maxTotalRounds = 40;
+	maxTotalRounds = CLuaInterface::GetInstance()->getIntValue("CPistolMaxTotalRounds");
 
 	// The time between shots
-	timeBetweenShots = 0.3333;
+	timeBetweenShots = CLuaInterface::GetInstance()->getFloatValue("CPistolShotCooldown");
 	// The elapsed time (between shots)
 	elapsedTime = 0.0;
 	// Boolean flag to indicate if weapon can fire now
 	bFire = true;
+
+	PrintSelf();
 }

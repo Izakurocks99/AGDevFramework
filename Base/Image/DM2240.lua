@@ -65,8 +65,20 @@ moveBackward = "S"
 moveLeft = "A"
 moveRight = "D"
 
---CPlayerInfo start pos
+--CPlayerInfo Init
 CPlayerInfoStartPos = {x =0,y =0,z =10}
+CPlayerInfoTargetPos = {x =0,y =0,z =0}
+CPlayerInfoJumpAcc = -10
+CPlayerInfoFallAcc = -10
+CPlayerInfoLife = 100
+
+--WeaponInfo Init
+--Pistol
+CPistolMagRounds = 8
+CPistolMaxMagRounds = 8
+CPistolTotalRounds = 40
+CPistolMaxTotalRounds = 40
+CPistolShotCooldown = 0.333
 
 --Waypoints
 Waypoint_A_1 = {x = 10.0, y=0.0, z=50.0}
