@@ -581,18 +581,16 @@ void CPlayerInfo::SavePlayerInfo()
 {
 	CLuaInterface::GetInstance()->saveVectorValue("CPlayerInfoStartPos", position, true);
 	CLuaInterface::GetInstance()->saveVectorValue("CPlayerInfoTargetPos", target);
-
+	CLuaInterface::GetInstance()->saveIntValue("CPlayerInfoLife", life);
 	PrintSelf();
-	//// Set the current values
-	//position = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoStartPos");
-	//target = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoTargetPos");
 
-	////read jump/fall acceleration from LUA
-	//m_dJumpAcceleration = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoJumpAcc");
-	//m_dFallAcceleration = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoFallAcc");
-
-	////read player life from file
-	//life = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoLife");
+	//save weapon info
+	CLuaInterface::GetInstance()->saveIntValue("CPistolMagRounds", primaryWeapon->GetMagRound());
+	CLuaInterface::GetInstance()->saveIntValue("CPistolMaxMagRounds", primaryWeapon->GetMaxMagRound());
+	CLuaInterface::GetInstance()->saveIntValue("CPistolTotalRounds", primaryWeapon->GetTotalRound());
+	CLuaInterface::GetInstance()->saveIntValue("CPistolMaxTotalRounds", primaryWeapon->GetMaxTotalRound());
+	CLuaInterface::GetInstance()->saveIntValue("CPistolShotCooldown", primaryWeapon->GetTimeBetweenShots());
+	primaryWeapon->PrintSelf();
 
 }
 
@@ -603,6 +601,13 @@ void CPlayerInfo::LoadPlayerInfo()
 	//Load from file
 	position = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoStartPos",true);
 	target = CLuaInterface::GetInstance()->getVector3Values("CPlayerInfoTargetPos", true);
-
+	life = CLuaInterface::GetInstance()->getIntValue("CPlayerInfoLife",true);
 	PrintSelf();
+
+	primaryWeapon->SetMagRound(CLuaInterface::GetInstance()->getIntValue("CPistolMagRounds", true));
+	primaryWeapon->SetMaxMagRound(CLuaInterface::GetInstance()->getIntValue("CPistolMaxMagRounds", true));
+	primaryWeapon->SetTotalRound(CLuaInterface::GetInstance()->getIntValue("CPistolTotalRounds", true));
+	primaryWeapon->SetMaxTotalRound(CLuaInterface::GetInstance()->getIntValue("CPistolMaxTotalRounds", true));
+	primaryWeapon->SetFiringRate(CLuaInterface::GetInstance()->getIntValue("CPistolShotCooldown", true));
+	primaryWeapon->PrintSelf();
 }
