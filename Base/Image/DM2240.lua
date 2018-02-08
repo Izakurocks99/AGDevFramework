@@ -66,7 +66,7 @@ moveLeft = "A"
 moveRight = "D"
 
 --CPlayerInfo start pos
-CPlayerInfoStartPos = {0,0,10}
+CPlayerInfoStartPos = {x =0,y =0,z =10}
 
 --Waypoints
 Waypoint_A_1 = {x = 10.0, y=0.0, z=50.0}

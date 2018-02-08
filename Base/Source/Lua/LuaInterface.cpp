@@ -134,20 +134,23 @@ char CLuaInterface::getCharValue(const char * varName)
 
 Vector3 CLuaInterface::getVector3Values(const char * varName)
 {
-	lua_getglobal(theLuaState, "CPlayerInfoStartPos");
-	lua_rawgeti(theLuaState, -1, 1);
-	int x = lua_tonumber(theLuaState, -1);
-	lua_pop(theLuaState, 1);
+	lua_getglobal(theLuaState, varName);
+	//lua_rawgeti(theLuaState, -1, 1);
+	//int x = lua_tonumber(theLuaState, -1);
+	//lua_pop(theLuaState, 1);
 
-	lua_rawgeti(theLuaState, -1, 2);
-	int y = lua_tonumber(theLuaState, -1);
-	lua_pop(theLuaState, 1);
+	//lua_rawgeti(theLuaState, -1, 2);
+	//int y = lua_tonumber(theLuaState, -1);
+	//lua_pop(theLuaState, 1);
 
-	lua_rawgeti(theLuaState, -1, 3);
-	int z = lua_tonumber(theLuaState, -1);
-	lua_pop(theLuaState, 1);
+	//lua_rawgeti(theLuaState, -1, 3);
+	//int z = lua_tonumber(theLuaState, -1);
+	//lua_pop(theLuaState, 1);
 
-	return Vector3(x, y, z);
+	//return Vector3(x, y, z);
+	return Vector3(GetField("x")
+		, GetField("y")
+		, GetField("z"));
 }
 
 float CLuaInterface::getDistanceSquareValue(const char * varName, Vector3 source, Vector3 destination)
