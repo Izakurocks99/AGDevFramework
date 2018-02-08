@@ -419,10 +419,10 @@ void SceneText::Update(double dt)
 	if (enemySpawnTimer < 0)
 	{
 		enemySpawnTimer = enemySpawnCooldown;
-		theEnemy = new CEnemy();
+		/*theEnemy = new CEnemy();
 		theEnemy->SetTerrain(groundEntity);
 		theEnemy->Init();
-		theEnemy->Set_EnemyType("Chase");
+		theEnemy->Set_EnemyType("Chase");*/
 	}
 	if (newEnemySpawn)
 	{

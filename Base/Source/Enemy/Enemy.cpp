@@ -54,6 +54,9 @@ void CEnemy::Init(void)
 
 	up.Set(0.0f, 1.0f, 0.0f);
 
+	// Set Range
+	Set_EnemyRange(50.0f);
+
 	// Set speed
 	m_dSpeed = 10.0;
 
@@ -185,9 +188,20 @@ GroundEntity* CEnemy::GetTerrain(void)
 // Update
 void CEnemy::Update(double dt)
 {
-	if (enemyType_ == "Chase")
+	if (enemyType_ == "Chase" || (enemyType_ == "Waypoint" && (position - CPlayerInfo::GetInstance()->GetPos()).Length() <= enemyRange_))
 	{
 		SetTarget(CPlayerInfo::GetInstance()->GetPos());
+		/*if (enemyType_ == "Waypoint")
+			cout << "Saw Player!!" << endl;*/
+	}
+	else if((target - position).LengthSquared() < 25.0f)
+	{
+		CWaypoint* nextWaypoint = GetNextWaypoint();
+		if (nextWaypoint)
+			target = nextWaypoint->GetPosition();
+		else
+			target = Vector3(0, 0, 0);
+		cout << "Next target: " << target << endl;
 	}
 	Vector3 viewVector = (target - position).Normalized();
 	position += viewVector * (float)m_dSpeed * (float)dt;
@@ -218,15 +232,7 @@ void CEnemy::Update(double dt)
 	//else if (position.z < -400.0f)
 	//	target.z = position.z * -1;
 
-	if ((target - position).LengthSquared() < 25.0f)
-	{
-		CWaypoint* nextWaypoint = GetNextWaypoint();
-		if (nextWaypoint)
-			target = nextWaypoint->GetPosition();
-		else
-			target = Vector3(0, 0, 0);
-		cout << "Next target: " << target << endl;
-	}
+	
 }
 
 // Constrain the position within the borders
@@ -301,6 +307,16 @@ void CEnemy::Set_EnemyType(string _newEnemyType)
 string CEnemy::Get_EnemyType(void)
 {
 	return enemyType_;
+}
+
+void CEnemy::Set_EnemyRange(float _newEnemyRange)
+{
+	enemyRange_ = _newEnemyRange;
+}
+
+float CEnemy::Get_EnemyRange(void)
+{
+	return enemyRange_;
 }
 
 // Set random seed

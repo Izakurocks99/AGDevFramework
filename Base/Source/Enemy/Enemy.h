@@ -33,6 +33,9 @@ protected:
 	// Enemy Type
 	string enemyType_;
 
+	// Enemy Range
+	float enemyRange_;
+
 public:
 	CEnemy(void);
 	virtual ~CEnemy();
@@ -81,4 +84,9 @@ public:
 	void Set_EnemyType(string _newEnemyType);
 	// Get Enemy Type
 	string Get_EnemyType(void);
+
+	// Set Enemy Range
+	void Set_EnemyRange(float _newEnemyRange);
+	// Get Enemy Range
+	float Get_EnemyRange(void);
 };
