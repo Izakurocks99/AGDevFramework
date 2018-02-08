@@ -41,7 +41,7 @@ public:
 	// Get a waypoint based on its ID
 	CWaypoint* GetWaypoint(const int _ID);
 	// Get nearest waypoint amongst related waypoints
-	CWaypoint GetNearestWaypoint(Vector3 _position);
+	CWaypoint* GetNearestWaypoint(Vector3 _position);
 	// Get the number of related waypoints
 	int GetNumberOfWaypoints(void) const;
 

@@ -41,10 +41,12 @@ private:
 
 	GenericEntity* theCube;
 	CEnemy* theEnemy;
+	CEnemy* new_Enemy;
 
 	//static SceneText* sInstance; // The pointer to the object that gets registered
 	float enemySpawnTimer = 0.f;
 	float enemySpawnCooldown = 5.f;
+	bool newEnemySpawn = true;
 };
 
 #endif

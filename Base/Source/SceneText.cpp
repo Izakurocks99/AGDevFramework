@@ -24,6 +24,8 @@
 #include "SceneGraph\UpdateTransformation.h"
 #include "LuaInterface.h"
 
+#include "../Waypoint/WaypointManager.h"
+
 #include <iostream>
 using namespace std;
 
@@ -312,6 +314,15 @@ void SceneText::Init()
 
 	int a = 1000, b = 2000, c = 3000, d = 4000;
 	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
+
+	// Create a Waypoint inside WaypointManager
+	int aWayPoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(350.0f, 0.0f, 60.0f));
+	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(aWayPoint, Vector3(350.0f, 0.0f, -60.0f));
+	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(0.0f, 0.0f, 0.0f));
+	CWaypointManager::GetInstance()->PrintSelf();
+
+
+	
 }
 
 void SceneText::Update(double dt)
@@ -397,8 +408,16 @@ void SceneText::Update(double dt)
 		theEnemy = new CEnemy();
 		theEnemy->SetTerrain(groundEntity);
 		theEnemy->Init();
+		theEnemy->Set_EnemyType("Chase");
 	}
-
+	if (newEnemySpawn)
+	{
+		new_Enemy = new CEnemy();
+		new_Enemy->SetTerrain(groundEntity);
+		new_Enemy->Init();
+		new_Enemy->Set_EnemyType("Waypoint");
+		newEnemySpawn = false;
+	}
 
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
@@ -415,9 +434,14 @@ void SceneText::Update(double dt)
 	ss << "FPS: " << fps;
 	textObj[1]->SetText(ss.str());
 
-	std::ostringstream ss1;
+	/*std::ostringstream ss1;
 	ss1.precision(4);
 	ss1 << "Player:" << playerInfo->GetPos();
+	textObj[2]->SetText(ss1.str());*/
+
+	std::ostringstream ss1;
+	ss1.precision(4);
+	ss1 << "New_Enemy:" << new_Enemy->GetPos();
 	textObj[2]->SetText(ss1.str());
 }
 

@@ -3,6 +3,11 @@
 #include "../GroundEntity.h"
 #include "../SceneGraph/SceneGraph.h"
 
+#include "../Waypoint/Waypoint.h"
+
+#include <vector>
+using namespace std;
+
 class Mesh;
 
 class CEnemy :
@@ -19,6 +24,14 @@ protected:
 
 	int m_iSeed;
 	CSceneNode* baseNode;
+
+	// Vector containing IDs of Waypoints
+	vector<int> listOfWaypoints;
+	// Current ID of Waypoint
+	int m_iWayPointIndex;
+
+	// Enemy Type
+	string enemyType_;
 
 public:
 	CEnemy(void);
@@ -60,4 +73,12 @@ public:
 	void SetRandomSeed(const int m_iSeed);
 	// Generate New Target
 	Vector3 GenerateTarget(void);
+
+	// Get next Waypoint for this 
+	CWaypoint* GetNextWaypoint(void);
+
+	// Set Enemy Type
+	void Set_EnemyType(string _newEnemyType);
+	// Get Enemy Type
+	string Get_EnemyType(void);
 };
