@@ -30,7 +30,7 @@ void CWeaponInfo::SetMagRound(const int magRounds)
 // Set the maximum number of ammunition in the magazine for this weapon
 void CWeaponInfo::SetMaxMagRound(const int magRounds)
 {
-	this->magRounds = magRounds;
+	this->maxMagRounds= magRounds;
 }
 
 // The current total number of rounds currently carried by this player

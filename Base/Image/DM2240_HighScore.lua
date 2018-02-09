@@ -1,7 +1,7 @@
-CPlayerInfoStartPos = {x=0.000000,y=0.000000,z=10.000000}
-CPlayerInfoTargetPos = {x=0.000000,y=0.000000,z=9.000000}
+CPlayerInfoStartPos = {x=3.456548,y=0.000000,z=34.485771}
+CPlayerInfoTargetPos = {x=3.504316,y=0.326736,z=35.429680}
 CPlayerInfoLife = 10
-CPistolMagRounds = 8
+CPistolMagRounds = 1
 CPistolMaxMagRounds = 8
 CPistolTotalRounds = 40
 CPistolMaxTotalRounds = 40
